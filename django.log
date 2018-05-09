@@ -1,0 +1,326 @@
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."username" = 'john'; args=('john',)
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+(0.000) SELECT "problemstatements_problemstatement"."id", "problemstatements_problemstatement"."created", "problemstatements_problemstatement"."title", "problemstatements_problemstatement"."description", "problemstatements_problemstatement"."submissions", "problemstatements_problemstatement"."videolink" FROM "problemstatements_problemstatement" ORDER BY "problemstatements_problemstatement"."created" ASC; args=()
+Exception while resolving variable 'hide_label' in template 'rest_framework/horizontal/input.html'.
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 835, in _resolve_lookup
+    current = current[bit]
+KeyError: 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [hide_label] in {'input_type': 'text', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7fead0ee1240>, 'base_template': 'input.html'}
+Exception while resolving variable 'placeholder' in template 'rest_framework/horizontal/input.html'.
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 835, in _resolve_lookup
+    current = current[bit]
+KeyError: 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [placeholder] in {'input_type': 'text', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7fead0ee1240>, 'base_template': 'input.html'}
+Exception while resolving variable 'autofocus' in template 'rest_framework/horizontal/input.html'.
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 835, in _resolve_lookup
+    current = current[bit]
+KeyError: 'autofocus'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'autofocus'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'autofocus'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [autofocus] in {'input_type': 'text', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7fead0ee1240>, 'base_template': 'input.html'}
+Exception while resolving variable 'hide_label' in template 'rest_framework/horizontal/textarea.html'.
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 835, in _resolve_lookup
+    current = current[bit]
+KeyError: 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [hide_label] in {'input_type': 'text', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7fead0ee1240>, 'base_template': 'textarea.html'}
+Exception while resolving variable 'placeholder' in template 'rest_framework/horizontal/textarea.html'.
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 835, in _resolve_lookup
+    current = current[bit]
+KeyError: 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [placeholder] in {'input_type': 'text', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7fead0ee1240>, 'base_template': 'textarea.html'}
+Exception while resolving variable 'rows' in template 'rest_framework/horizontal/textarea.html'.
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 835, in _resolve_lookup
+    current = current[bit]
+KeyError: 'rows'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'rows'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'rows'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [rows] in {'input_type': 'text', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7fead0ee1240>, 'base_template': 'textarea.html'}
+Exception while resolving variable 'hide_label' in template 'rest_framework/horizontal/input.html'.
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 835, in _resolve_lookup
+    current = current[bit]
+KeyError: 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [hide_label] in {'input_type': 'number', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7fead0ee1240>, 'base_template': 'input.html'}
+Exception while resolving variable 'placeholder' in template 'rest_framework/horizontal/input.html'.
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 835, in _resolve_lookup
+    current = current[bit]
+KeyError: 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [placeholder] in {'input_type': 'number', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7fead0ee1240>, 'base_template': 'input.html'}
+Exception while resolving variable 'autofocus' in template 'rest_framework/horizontal/input.html'.
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 835, in _resolve_lookup
+    current = current[bit]
+KeyError: 'autofocus'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'autofocus'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'autofocus'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [autofocus] in {'input_type': 'number', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7fead0ee1240>, 'base_template': 'input.html'}
+Exception while resolving variable 'hide_label' in template 'rest_framework/horizontal/textarea.html'.
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 835, in _resolve_lookup
+    current = current[bit]
+KeyError: 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [hide_label] in {'input_type': 'text', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7fead0ee1240>, 'base_template': 'textarea.html'}
+Exception while resolving variable 'placeholder' in template 'rest_framework/horizontal/textarea.html'.
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 835, in _resolve_lookup
+    current = current[bit]
+KeyError: 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [placeholder] in {'input_type': 'text', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7fead0ee1240>, 'base_template': 'textarea.html'}
+Exception while resolving variable 'rows' in template 'rest_framework/horizontal/textarea.html'.
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 835, in _resolve_lookup
+    current = current[bit]
+KeyError: 'rows'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'rows'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'rows'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tarush/virtualenvironments/api-env/lib/python3.5/site-packages/django/template/base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [rows] in {'input_type': 'text', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7fead0ee1240>, 'base_template': 'textarea.html'}
+"GET /problemstatements/ HTTP/1.1" 200 15133
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."username" = 'john'; args=('john',)
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()

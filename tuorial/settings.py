@@ -28,6 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,8 +42,32 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'snippets.apps.SnippetsConfig',
+    'rest_framework.authtoken',
+    
+    'problemstatements',
+    'faqs',
+
+    'corsheaders',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
 ]
+
+SITE_ID = 1
+
+
+SESSION_ENGINE = "django.contrib.sessions.backends.file"
+
+REST_FRAMEWORK = {
+  'DEFAULT_AUTHENTICATION_CLASSES': (
+      'rest_framework.authentication.TokenAuthentication',
+    )
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,7 +77,20 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  
+    'django.middleware.common.CommonMiddleware',  
+
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = (
+    'http://127.0.0.1:3000',
+)
+CORS_ORIGIN_REGEX_WHITELIST = (
+    '127.0.0.1:3000',
+)
+
 
 ROOT_URLCONF = 'tuorial.urls'
 
@@ -101,13 +142,28 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+    },
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE =  'Asia/Kolkata'
 
 USE_I18N = True
 
