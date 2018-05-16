@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+ACCOUNT_ADAPTER = 'tuorial.adapter.DefaultAccountAdapterCustom'
+URL_FRONT = 'http://localhost:3000/'
 
 
 # Application definition
@@ -41,21 +43,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_auth',
     
     'problemstatements',
     'faqs',
+    'users',
 
     'corsheaders',
-    'rest_auth',
-    'django.contrib.sites',
+    'django.contrib.sites',    
+
     'allauth',
     'allauth.account',
     'rest_auth.registration',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.twitter',
+
 ]
 
 SITE_ID = 1
@@ -64,9 +67,20 @@ SITE_ID = 1
 SESSION_ENGINE = "django.contrib.sessions.backends.file"
 
 REST_FRAMEWORK = {
-  'DEFAULT_AUTHENTICATION_CLASSES': (
-      'rest_framework.authentication.TokenAuthentication',
+  'DEFAULT_AUTHENTICATION_CLASSES': (      
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication'   
     )
+}
+ACCOUNT_USER_USERNAME_FIELD = None
+AUTH_USER_MODEL = 'users.User'
+
+REST_AUTH_SERIALIZERS = {
+    
+    'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer'
+}
+REST_AUTH_REGISTER_SERIALIZERS = {
+    "REGISTER_SERIALIZER":"users.serializers.RegisterSerializer",
 }
 
 MIDDLEWARE = [
