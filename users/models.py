@@ -3,28 +3,44 @@ from dateutil.relativedelta import relativedelta
 import datetime
 
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
+from django.utils.translation import ugettext_lazy as _
+
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, name, college, date_of_birth, password=None):
+    
+    use_in_migrations = True
+
+    def create_user(self, email, name, college, date_of_birth, is_participant, is_mentor, is_sponsor, is_end_user , mentored_challenges, mentored_won_challenges, sponsored_challenges, contested_challenges, password=None):
         """
         Creates and saves a User with the given email and password.
         """
         if not email:
             raise ValueError('Users must have an email address')
 
+        print("naam" + name)
         user = self.model(
             email=self.normalize_email(email),
             date_of_birth=date_of_birth,
             college=college,
             name=name,
+            is_participant = is_participant,
+            is_mentor = is_mentor,
+            is_sponsor = is_sponsor,
+            is_end_user = is_end_user,
+            mentored_challenges = mentored_challenges,
+            mentored_won_challenges = mentored_won_challenges,
+            sponsored_challenges = sponsored_challenges,
+            contested_challenges = contested_challenges,
         )
+
+        print(user)
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_staffuser(self, email, name, college, date_of_birth, password):
+    def create_staffuser(self, email, name, college, date_of_birth, password , is_participant, is_mentor, is_sponsor, is_end_user , mentored_challenges, mentored_won_challenges, sponsored_challenges, contested_challenges):
         """
         Creates and saves a staff user with the given email and password.
         """
@@ -34,12 +50,20 @@ class UserManager(BaseUserManager):
             date_of_birth=date_of_birth,
             college=college,
             name=name,
+            is_participant = is_participant,
+            is_mentor = is_mentor,
+            is_sponsor = is_sponsor,
+            is_end_user = is_end_user,
+            mentored_challenges = mentored_challenges,
+            mentored_won_challenges = mentored_won_challenges,
+            sponsored_challenges = sponsored_challenges,
+            contested_challenges = contested_challenges,
         )
         user.staff = True
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, name, college, date_of_birth, password):
+    def create_superuser(self, email, date_of_birth, password):
         """
         Creates and saves a superuser with the given email and password.
         """
@@ -47,8 +71,16 @@ class UserManager(BaseUserManager):
             email,
             password=password,
             date_of_birth=date_of_birth,
-            college=college,
-            name=name,
+            college= "True",
+            name= "True",
+            is_participant =  True,
+            is_mentor =  True,
+            is_sponsor =  True,
+            is_end_user =  True,
+            mentored_challenges =  0,
+            mentored_won_challenges =  0,
+            sponsored_challenges =  0,
+            contested_challenges =  0,
         )
         user.staff = True
         user.admin = True
@@ -56,11 +88,10 @@ class UserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser):
-    email = models.EmailField(
-        verbose_name='email address',
-        max_length=255,
-        unique=True,
-    )
+
+    username = None
+    email = models.EmailField(_('email address'), unique=True)
+
 
     name = models.CharField(max_length=100)
     college = models.CharField(max_length=100)
@@ -69,14 +100,45 @@ class User(AbstractBaseUser):
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False) # a admin user; non super-user
     admin = models.BooleanField(default=False) # a superuser
-    # notice the absence of a "Password field", that's built in.
+
+    is_participant = models.BooleanField(default=True)
+    is_mentor = models.BooleanField(default=False)
+    is_sponsor = models.BooleanField(default=False)
+    is_end_user = models.BooleanField(default=False)
+    
+    contested_challenges = models.IntegerField(default=0) 
+    mentored_challenges = models.IntegerField(default=0)
+    mentored_won_challenges = models.IntegerField(default=0)
+    sponsored_challenges = models.IntegerField(default=0)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name','college','date_of_birth']
-
+    REQUIRED_FIELDS = [ 'date_of_birth','name','college', 'is_participant', 'is_mentor','is_sponsor','is_end_user']
 
     objects = UserManager()
 
+    def sponsor_challenge(self):
+        new_sponsor_count = self.sponsored_challenges + 1
+        setattr(self, 'sponsored_challenges', new_sponsor_count)
+
+        self.save(update_fields = ["sponsored_challenges"] )
+
+    def mentor_challenge(self):
+        new_mentor_count = self.mentored_challenges + 1
+        setattr(self, 'mentored_challenges', new_mentor_count)
+
+        self.save(update_fields = ["mentored_challenges"] )
+    
+    def contest_challenge(self):
+        new_contest_count = self.contested_challenges + 1
+        setattr(self, 'contested_challenges', new_contest_count)
+
+        self.save(update_fields = ["contested_challenges"] )
+    
+    def mentor_won_challenge(self):
+        new_mentor_won_count = self.mentored_won_challenges + 1
+        setattr(self, 'mentored_won_challenges', new_mentor_won_count)
+
+        self.save(update_fields = ["mentored_won_challenges"] )
 
     def get_full_name(self):
         # The user is identified by their email address
@@ -113,7 +175,6 @@ class User(AbstractBaseUser):
     def is_active(self):
         "Is the user active?"
         return self.active
-
 
 # class MyUser(AbstractBaseUser):
 #     emailaddress = models.CharField(max_length=40, unique=True)

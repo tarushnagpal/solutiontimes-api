@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    'reset_migrations',
     
     'problemstatements',
     'faqs',
@@ -57,6 +58,7 @@ INSTALLED_APPS = [
 
     'allauth',
     'allauth.account',
+    'allauth.socialaccount', 
     'rest_auth.registration',
 
 ]
@@ -72,19 +74,21 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication'   
     )
 }
+
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_EMAIL_FIELD = 'email'
+ACCOUNT_LOGOUT_ON_GET = True
 
 AUTH_USER_MODEL = 'users.User'
 
 
 REST_AUTH_SERIALIZERS = {
     "USER_DETAILS_SERIALIZER": "users.serializers.CustomUserDetailsSerializer",
-    "REGISTER_SERIALIZER": "users.serializers.CustomRegisterSerializer",
 }
 REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "users.serializers.CustomRegisterSerializer",
