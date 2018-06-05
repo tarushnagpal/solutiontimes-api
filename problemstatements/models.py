@@ -3,11 +3,12 @@ import requests
 import json
 import dateutil.parser
 import humanize
-from datetime import datetime,timezone
+from datetime import datetime,timezone,timedelta
 from urllib.parse import urlparse,parse_qs
 from users.models import User
 from django.forms.models import model_to_dict
 from django.core.exceptions import ValidationError
+import isodate
 
 class ProblemStatementPlaylist(models.Model):
 
@@ -20,7 +21,7 @@ class ProblemStatementPlaylist(models.Model):
             url = self.playlist_url
             url = url.split('=')
             p_id = url[-1]
-            all_playlists = requests.get('https://content.googleapis.com/youtube/v3/playlistItems?playlistId=' + p_id + '&part=snippet%2CcontentDetails&key=AIzaSyDZk4YcpyjFi_05Pic1f46SEGk1bzUa2Jg')
+            all_playlists = requests.get('https://content.googleapis.com/youtube/v3/playlistItems?playlistId=' + p_id + '&maxResults=50&part=snippet%2CcontentDetails&key=AIzaSyDZk4YcpyjFi_05Pic1f46SEGk1bzUa2Jg')
             all_playlists = all_playlists.json()
 
             for i in all_playlists['items']:
@@ -28,6 +29,9 @@ class ProblemStatementPlaylist(models.Model):
                 videolink = 'https://www.youtube.com/watch?v=' + i['contentDetails']['videoId']
                 print(videolink)
                 ProblemStatement.objects.create( videolink = videolink, domain=self.domain )
+
+        super(ProblemStatementPlaylist, self).save(*args, **kwargs)
+
 
 class ProblemStatement(models.Model):
     
@@ -47,17 +51,30 @@ class ProblemStatement(models.Model):
     mentors = models.ManyToManyField(User, through="Mentor", related_name="Mentors+")
     sponsors = models.ManyToManyField(User, through="Sponsor", related_name="Sponsors+")
 
+    is_today  = models.BooleanField(default=False)
+    is_week = models.BooleanField(default=False)
+    is_month = models.BooleanField(default=False)
+    is_year = models.BooleanField(default=False)
+    is_older = models.BooleanField(default=False)
+    
+    is_short = models.BooleanField(default=False)
+    is_medium = models.BooleanField(default=False)
+    is_long = models.BooleanField(default=False)    
+
     def save(self, *args, **kwargs):
         if self.videolink:
                         
             self.video_id = self.get_id()
 
-            youtube_data = requests.get('https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id=' + self.video_id + '&key=AIzaSyDZk4YcpyjFi_05Pic1f46SEGk1bzUa2Jg')
+            youtube_data = requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2C+snippet&id=' + self.video_id + '&key=AIzaSyDZk4YcpyjFi_05Pic1f46SEGk1bzUa2Jg')
             youtube_data = youtube_data.json()
 
             self.title = self.get_title(youtube_data)
             self.description = self.get_description(youtube_data)
             self.time_to_show = self.get_time(youtube_data)
+            
+            self.set_time_stamps(youtube_data)
+            self.set_intervals(youtube_data)
 
         super(ProblemStatement, self).save(*args, **kwargs)
 
@@ -75,8 +92,43 @@ class ProblemStatement(models.Model):
     def get_time(self,youtube_data):
         youtube_time = dateutil.parser.parse( youtube_data['items'][0]['snippet']['publishedAt'] )
         current_time = datetime.now( timezone.utc )
-
+        
         return(humanize.naturaltime(current_time - youtube_time))
+    
+    def set_intervals(self,youtube_data):
+        duration = isodate.parse_duration(youtube_data['items'][0]['contentDetails']['duration'])
+        duration = str(duration).split(':')
+        if( int(duration[0]) == 1 ):
+            self.is_long = True
+        else:
+            if( int(duration[1]) < 4 ):
+                self.is_short = True
+            elif( int(duration[1]) < 15 ):
+                self.is_medium = True
+            else:
+                self.is_long = True
+
+    def set_time_stamps(self,youtube_data):
+        youtube_time = dateutil.parser.parse( youtube_data['items'][0]['snippet']['publishedAt'] )
+        current_time = datetime.now( timezone.utc )
+
+        monday1 = ( youtube_time - timedelta(days=youtube_time.weekday()))
+        monday2 = ( current_time - timedelta(days=current_time.weekday()))
+
+        days = (monday2 - monday1).days
+
+        if(days<1):
+            self.is_today = True
+        if(days<8):
+            self.is_week = True
+        if(days<32):
+            self.is_month = True
+        if(days<366):
+            self.is_year = True
+        else:
+            self.is_older = True
+
+
 
     def __str__(self):
         return str(self.id)
