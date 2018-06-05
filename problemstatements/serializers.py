@@ -1,6 +1,12 @@
 from rest_framework import serializers
-from problemstatements.models import ProblemStatement , Solution, Mentor, Sponsor
+from problemstatements.models import ProblemStatement , Solution, Mentor, Sponsor, ProblemStatementPlaylist
 from users.serializers import UserDetailsSerializer
+
+class ProblemStatementPlaylistSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProblemStatementPlaylist
+        fields = ('id','domain','playlist_url')
 
 class ProblemStatementSerializer(serializers.ModelSerializer):
 

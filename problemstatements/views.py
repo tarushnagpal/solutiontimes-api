@@ -1,6 +1,6 @@
-from problemstatements.models import ProblemStatement, Solution, Mentor, Sponsor
+from problemstatements.models import ProblemStatement, Solution, Mentor, Sponsor, ProblemStatementPlaylist
 from users.models import User
-from problemstatements.serializers import ProblemStatementSerializer
+from problemstatements.serializers import ProblemStatementSerializer, ProblemStatementPlaylistSerializer
 from rest_framework import generics
 from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict
@@ -16,6 +16,10 @@ class ProblemStatementList(generics.ListCreateAPIView):
 class ProblemStatementDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ProblemStatement.objects.all()
     serializer_class = ProblemStatementSerializer
+
+class ProblemStatementPlaylistList(generics.ListCreateAPIView):
+    queryset = ProblemStatementPlaylist.objects.all()
+    serializer_class = ProblemStatementPlaylistSerializer
 
 @csrf_exempt 
 def problemSpecificSolution(request,pk):

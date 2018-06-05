@@ -4,6 +4,7 @@ from problemstatements import views
 
 urlpatterns = [
     url(r'^problemstatements/$', views.ProblemStatementList.as_view()),
+    url(r'^problemstatements/playlists/$', views.ProblemStatementPlaylistList.as_view()),
     url(r'^problemstatements/(?P<pk>[0-9]+)/$', views.problemSpecificSolution ),
     url(r'^problemstatements/(?P<pk>[0-9]+)/solution/$', views.postSolution ),
     url(r'^problemstatements/(?P<pk>[0-9]+)/sponsor/$', views.postSponsor ),

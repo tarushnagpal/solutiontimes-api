@@ -9,6 +9,26 @@ from users.models import User
 from django.forms.models import model_to_dict
 from django.core.exceptions import ValidationError
 
+class ProblemStatementPlaylist(models.Model):
+
+    created = models.DateTimeField(auto_now_add=True)
+    domain = models.CharField(max_length=100, unique=True)
+    playlist_url = models.CharField(max_length=100, unique=True)
+
+    def save(self, *args, **kwargs):
+        if self.playlist_url:
+            url = self.playlist_url
+            url = url.split('=')
+            p_id = url[-1]
+            all_playlists = requests.get('https://content.googleapis.com/youtube/v3/playlistItems?playlistId=' + p_id + '&part=snippet%2CcontentDetails&key=AIzaSyDZk4YcpyjFi_05Pic1f46SEGk1bzUa2Jg')
+            all_playlists = all_playlists.json()
+
+            for i in all_playlists['items']:
+                
+                videolink = 'https://www.youtube.com/watch?v=' + i['contentDetails']['videoId']
+                print(videolink)
+                ProblemStatement.objects.create( videolink = videolink, domain=self.domain )
+
 class ProblemStatement(models.Model):
     
     created = models.DateTimeField(auto_now_add=True)
@@ -23,9 +43,9 @@ class ProblemStatement(models.Model):
     description = models.TextField(default = "Only change if you want to edit, Will fetch from youtube")
     time_to_show = models.TextField(default = "Only change if you want to edit, Will fetch from youtube")
     
-    # contestants = models.ManyToManyField(User, through="Solution", related_name="Contestants+")
-    # mentors = models.ManyToManyField(User, through="Mentor", related_name="Mentors+")
-    # sponsors = models.ManyToManyField(User, through="Sponsor", related_name="Sponsors+")
+    contestants = models.ManyToManyField(User, through="Solution", related_name="Contestants+")
+    mentors = models.ManyToManyField(User, through="Mentor", related_name="Mentors+")
+    sponsors = models.ManyToManyField(User, through="Sponsor", related_name="Sponsors+")
 
     def save(self, *args, **kwargs):
         if self.videolink:
