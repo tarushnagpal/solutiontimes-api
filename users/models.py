@@ -107,25 +107,25 @@ class User(AbstractBaseUser):
     is_end_user = models.BooleanField(default=False)
     
     contested_challenges = models.IntegerField(default=0) 
-    mentored_challenges = models.IntegerField(default=0)
+    mentored_challenges = models.IntegerField(default=1)
     mentored_won_challenges = models.IntegerField(default=0)
-    sponsored_challenges = models.IntegerField(default=0)
+    sponsored_challenges = models.IntegerField(default=1)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = [ 'date_of_birth','name','college', 'is_participant', 'is_mentor','is_sponsor','is_end_user']
 
     objects = UserManager()
 
-    def sponsor_challenge(self):
+    def sponsor_challenge(self):        
         new_sponsor_count = self.sponsored_challenges + 1
-        setattr(self, 'sponsored_challenges', new_sponsor_count)
-
+        self.sponsored_challenges = new_sponsor_count
         self.save(update_fields = ["sponsored_challenges"] )
 
     def mentor_challenge(self):
         new_mentor_count = self.mentored_challenges + 1
-        setattr(self, 'mentored_challenges', new_mentor_count)
-
+        self.mentored_challenges = new_mentor_count
+        print(new_mentor_count)
+        print(self.mentored_challenges)
         self.save(update_fields = ["mentored_challenges"] )
     
     def contest_challenge(self):

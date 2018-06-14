@@ -191,7 +191,8 @@ class Mentor(models.Model):
     is_indivisual = models.BooleanField()
     organization_name = models.CharField(max_length=100, blank=True, null=True )
     email = models.EmailField(null=True, blank=True)
-    
+    no_of_mentors = models.IntegerField(default=0)
+
     class Meta:
         unique_together = ('mentor','problemStatement')
     
@@ -205,7 +206,9 @@ class Mentor(models.Model):
             if(self.is_indivisual):
                 self.organization_name = this_user_dict['name']
             
+            # print(this_user_dict['mentored'])
             self.email = this_user_dict['email']
+            self.no_of_mentors = this_user_dict['mentored_challenges']
 
         else:
             raise ValidationError("Not a Mentor!")
@@ -220,6 +223,7 @@ class Sponsor(models.Model):
     is_indivisual = models.BooleanField()
     organization_name = models.CharField(max_length=100, blank=True, null=True )
     email = models.EmailField(null=True, blank=True)
+    no_of_sponsors = models.IntegerField(default=0)
     
     class Meta:
         unique_together = ('sponsor','problemStatement')
@@ -235,6 +239,7 @@ class Sponsor(models.Model):
                 self.organization_name = this_user_dict['name']
             
             self.email = this_user_dict['email']
+            self.no_of_sponsors = this_user_dict['sponsored_challenges']
 
         else:
             raise ValidationError("Not a Sponsor!")

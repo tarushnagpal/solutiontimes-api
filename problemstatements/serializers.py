@@ -30,7 +30,7 @@ class MentorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Mentor
-        fields = ( 'is_indivisual' , 'organization_name' )
+        fields = ( 'is_indivisual' , 'organization_name', 'mentored_challenges' )
 
 class SponsorSerializer(serializers.ModelSerializer):
 
@@ -39,4 +39,4 @@ class SponsorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Sponsor
-        fields = ( 'is_indivisual' , 'organization_name' )        
+        fields = ( 'is_indivisual' , 'organization_name' , 'sponsored_challenges')        
