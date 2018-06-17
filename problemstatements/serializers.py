@@ -12,7 +12,7 @@ class ProblemStatementSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProblemStatement
-        fields = ('id', 'title', 'description', 'submissions', 'videolink', 'title', 'description', 'time_to_show', 'video_id', 'domain', 'is_today','is_week','is_month','is_year','is_older' ,'is_short' ,'is_medium' ,'is_long' )
+        fields = ('id', 'title', 'description', 'submissions', 'videolink', 'title', 'description', 'time_to_show', 'video_id', 'domain', 'is_today','is_week','is_month','is_year','is_older' ,'is_short' ,'is_medium' ,'is_long', 'thumbnail','duration' )
         
 class SolutionSerializer(serializers.ModelSerializer):
 

@@ -14,7 +14,7 @@ class ProblemStatementPlaylist(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     domain = models.CharField(max_length=100, unique=True)
-    playlist_url = models.CharField(max_length=100, unique=True)
+    playlist_url = models.CharField(max_length=100, unique=True, help_text="In format: https://www.youtube.com/watch?v=ev2SkXJVAbA&list=PLOoogDtEDyvsBG38tzlj1Zkd0PLxgZwXV")
 
     def save(self, *args, **kwargs):
         if self.playlist_url:
@@ -43,15 +43,17 @@ class ProblemStatement(models.Model):
 
     video_id = models.TextField(default="8tPnX7OPo0Q", editable=False)
     domain = models.CharField(max_length=20,default= "Enter domain")
-    title  = models.TextField(default = "Only change if you want to edit, Will fetch from youtube")
+    title  = models.TextField(default = "Only change if you want to edit, Will fetch from youtube" )
     description = models.TextField(default = "Only change if you want to edit, Will fetch from youtube")
     time_to_show = models.TextField(default = "Only change if you want to edit, Will fetch from youtube")
-    
+    thumbnail = models.TextField(default = "https://i.ytimg.com/vi/tgbNymZ7vqY/maxresdefault.jpg")
+    duration = models.TextField(default= "4:20" )
+
     contestants = models.ManyToManyField(User, through="Solution", related_name="Contestants+")
     mentors = models.ManyToManyField(User, through="Mentor", related_name="Mentors+")
     sponsors = models.ManyToManyField(User, through="Sponsor", related_name="Sponsors+")
 
-    is_today  = models.BooleanField(default=False)
+    is_today  = models.BooleanField(default=False )
     is_week = models.BooleanField(default=False)
     is_month = models.BooleanField(default=False)
     is_year = models.BooleanField(default=False)
@@ -66,13 +68,14 @@ class ProblemStatement(models.Model):
                         
             self.video_id = self.get_id()
 
-            youtube_data = requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2C+snippet&id=' + self.video_id + '&key=AIzaSyDZk4YcpyjFi_05Pic1f46SEGk1bzUa2Jg')
+            youtube_data = requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2C+snippet&id=' + self.video_id + '&part=contentDetails&key=AIzaSyDZk4YcpyjFi_05Pic1f46SEGk1bzUa2Jg')
             youtube_data = youtube_data.json()
-
             self.title = self.get_title(youtube_data)
             self.description = self.get_description(youtube_data)
             self.time_to_show = self.get_time(youtube_data)
-            
+            self.thumbnail = self.get_thumbnail(youtube_data)
+            self.duration = self.get_duration(youtube_data)
+
             self.set_time_stamps(youtube_data)
             self.set_intervals(youtube_data)
 
@@ -83,12 +86,20 @@ class ProblemStatement(models.Model):
         query = parse_qs(url_data.query)
         return(query["v"][0])
 
+    def get_duration(self, youtube_data):
+        timeD = youtube_data['items'][0]['contentDetails']['duration']
+        formattedTime = timeD.replace("PT","").replace("H",":").replace("M",":").replace("S","")
+        return(formattedTime)
+
     def get_title(self,youtube_data):
         return(youtube_data['items'][0]['snippet']['title'])
     
     def get_description(self,youtube_data):
         return(youtube_data['items'][0]['snippet']['description'])
     
+    def get_thumbnail(self,youtube_data):
+        return(youtube_data['items'][0]['snippet']['thumbnails']['maxres']['url'] )
+
     def get_time(self,youtube_data):
         youtube_time = dateutil.parser.parse( youtube_data['items'][0]['snippet']['publishedAt'] )
         current_time = datetime.now( timezone.utc )
