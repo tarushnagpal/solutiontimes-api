@@ -48,6 +48,7 @@ class ProblemStatement(models.Model):
     time_to_show = models.TextField(default = "Only change if you want to edit, Will fetch from youtube")
     thumbnail = models.TextField(default = "https://i.ytimg.com/vi/tgbNymZ7vqY/maxresdefault.jpg")
     duration = models.TextField(default= "4:20" )
+    views = models.TextField(default="0")
 
     contestants = models.ManyToManyField(User, through="Solution", related_name="Contestants+")
     mentors = models.ManyToManyField(User, through="Mentor", related_name="Mentors+")
@@ -69,13 +70,16 @@ class ProblemStatement(models.Model):
             self.video_id = self.get_id()
 
             youtube_data = requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2C+snippet&id=' + self.video_id + '&part=contentDetails&key=AIzaSyDZk4YcpyjFi_05Pic1f46SEGk1bzUa2Jg')
+            view_data = requests.get('https://www.googleapis.com/youtube/v3/videos?part=statistics&id=' + self.video_id + '&key=AIzaSyDZk4YcpyjFi_05Pic1f46SEGk1bzUa2Jg')
+            view_data = view_data.json()
             youtube_data = youtube_data.json()
             self.title = self.get_title(youtube_data)
             self.description = self.get_description(youtube_data)
             self.time_to_show = self.get_time(youtube_data)
             self.thumbnail = self.get_thumbnail(youtube_data)
             self.duration = self.get_duration(youtube_data)
-
+            self.views = self.get_views(view_data)
+            
             self.set_time_stamps(youtube_data)
             self.set_intervals(youtube_data)
 
@@ -85,6 +89,12 @@ class ProblemStatement(models.Model):
         url_data = urlparse(self.videolink)
         query = parse_qs(url_data.query)
         return(query["v"][0])
+    
+    def get_views(self, view_data):
+        views = view_data['items'][0]['statistics']['viewCount']
+        views = humanize.intword(views)
+        return(views)
+
 
     def get_duration(self, youtube_data):
         timeD = youtube_data['items'][0]['contentDetails']['duration']
