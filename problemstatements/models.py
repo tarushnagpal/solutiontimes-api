@@ -50,6 +50,11 @@ class ProblemStatement(models.Model):
     duration = models.TextField(default= "4:20" )
     views = models.TextField(default="0")
 
+    views_number = models.TextField(default="0")
+    likes_number = models.TextField(default="0")
+    dislikes_number = models.TextField(default="0")
+    time_number = models.TextField(default="0")
+
     contestants = models.ManyToManyField(User, through="Solution", related_name="Contestants+")
     mentors = models.ManyToManyField(User, through="Mentor", related_name="Mentors+")
     sponsors = models.ManyToManyField(User, through="Sponsor", related_name="Sponsors+")
@@ -80,6 +85,8 @@ class ProblemStatement(models.Model):
             self.duration = self.get_duration(youtube_data)
             self.views = self.get_views(view_data)
             
+            # self.views_number = self.get_viewsnumber(view_data)
+
             self.set_time_stamps(youtube_data)
             self.set_intervals(youtube_data)
 
@@ -92,9 +99,15 @@ class ProblemStatement(models.Model):
     
     def get_views(self, view_data):
         views = view_data['items'][0]['statistics']['viewCount']
+        self.views_number = views
+        self.likes_number = view_data['items'][0]['statistics']['likeCount']
+        self.dislikes_number = view_data['items'][0]['statistics']['dislikeCount']
         views = humanize.intword(views)
         return(views)
 
+    # def get_viewsnumber(self,view_data):
+    #     views = view_data['items'][0]['statistics']['viewCount']
+    #     return
 
     def get_duration(self, youtube_data):
         timeD = youtube_data['items'][0]['contentDetails']['duration']
@@ -113,7 +126,7 @@ class ProblemStatement(models.Model):
     def get_time(self,youtube_data):
         youtube_time = dateutil.parser.parse( youtube_data['items'][0]['snippet']['publishedAt'] )
         current_time = datetime.now( timezone.utc )
-        
+        self.time_number = youtube_data['items'][0]['snippet']['publishedAt']
         return(humanize.naturaltime(current_time - youtube_time))
     
     def set_intervals(self,youtube_data):
