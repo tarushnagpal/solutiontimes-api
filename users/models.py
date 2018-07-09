@@ -78,9 +78,9 @@ class UserManager(BaseUserManager):
             is_sponsor =  True,
             is_end_user =  True,
             mentored_challenges =  0,
-            mentored_won_challenges =  0,
-            sponsored_challenges =  0,
-            contested_challenges =  0,
+            mentored_won_challenges = 1,
+            sponsored_challenges =  1,
+            contested_challenges =  1,
         )
         user.staff = True
         user.admin = True

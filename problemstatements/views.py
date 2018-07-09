@@ -37,17 +37,34 @@ def problemSpecificSolution(request,pk):
         Problem = model_to_dict(Problem)
         ret_Problem = {'time_to_show': Problem['time_to_show']  , 'id': Problem['id'] , 'description': Problem['description'], 'domain':Problem['domain'] , 'videolink': Problem['videolink'], 'title': Problem['title']}            
 
+
         x = []
         for j in Sol:
+            # check_3 = model_to_dict(j)
+            
+            # this_user = User.objects.get(email=check_3['email'])
+            # check_3['no_of_sponsors'] = model_to_dict(this_user)['sponsored_challenges']
+            # z.append(check_3)
+
             x.append(model_to_dict(j))
         
         y = []
         for j in Men:
-            y.append(model_to_dict(j))
+            check_3 = model_to_dict(j)
+            
+            this_user = User.objects.get(email=check_3['email'])
+            check_3['no_of_mentors'] = model_to_dict(this_user)['mentored_challenges']
+            y.append(check_3)
+            
 
         z = []
         for j in Spo:
-            z.append(model_to_dict(j))
+            
+            check_3 = model_to_dict(j)
+            
+            this_user = User.objects.get(email=check_3['email'])
+            check_3['no_of_sponsors'] = model_to_dict(this_user)['sponsored_challenges']
+            z.append(check_3)
 
         ret = { "Problemstatement": ret_Problem, "Solutions": x, "Mentors": y, "Sponsors": z }
         return JsonResponse(ret)
