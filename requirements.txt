@@ -15,7 +15,7 @@ djangorestframework==3.8.2
 djangorestframework-jwt==1.11.0
 djangorestframework-oauth==1.1.0
 djoser==1.1.5
-httpie==0.9.9
+httpie==1.0.3
 httplib2==0.11.3
 humanize==0.5.1
 idna==2.6
