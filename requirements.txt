@@ -11,7 +11,7 @@ django-oauth2-provider==0.2.6.1
 django-rest-auth==0.9.3
 django-tastypie==0.14.1
 django-templated-mail==1.1.1
-djangorestframework==3.8.2
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 djangorestframework-oauth==1.1.0
 djoser==1.1.5
